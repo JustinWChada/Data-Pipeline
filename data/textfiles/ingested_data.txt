@@ -1,0 +1,100 @@
+student details data:     student_id first_name last_name department  batch  current_semester
+0            1     Rajesh     Verma        CSE   2020                 8
+1            2      Priya    Sharma        CSE   2020                 8
+2            3      Arjun     Patel        CSE   2020                 8
+3            4      Divya  Krishnan        CSE   2020                 8
+4            5     Vikram     Singh        CSE   2020                 8
+5            6      Aisha      Khan        MBA   2020                 8
+6            7      Rohan     Gupta        MBA   2020                 8
+7            8       Neha     Desai         ME   2020                 8
+8            9     Sanjay      Iyer         ME   2020                 8
+9           10     Ananya      Nair         ME   2020                 8
+10          11      Karan     Menon         CE   2020                 8
+11          12      Sneha       Rao         CE   2020                 8
+12          13       Amit      Bhat        BCA   2020                 6
+13          14      Pooja     Sinha        BCA   2020                 6
+14          15     Suresh     Kumar        BCA   2020                 6
+15          16     Deepti     Joshi        CSE   2021                 6
+16          17      Varun   Nambiar        CSE   2021                 6
+17          18     Sakshi     Bhatt        MBA   2021                 6
+18          19     Nikhil    Chopra         ME   2021                 6
+19          20     Ishita     Yadav        BCA   2021                 4
+
+exam data:     student_id first_name last_name department  cgpa  latest_sgpa  active_backlogs  has_backlog_history
+0            1     Rajesh     Verma        CSE   8.2          8.1                0                    0
+1            2      Priya    Sharma        CSE   8.7          8.5                0                    0
+2            3      Arjun     Patel        CSE   7.8          7.9                0                    0
+3            4      Divya  Krishnan        CSE   8.4          8.3                0                    0
+4            5     Vikram     Singh        CSE   7.5          7.3                1                    1
+5            6      Aisha      Khan        MBA   8.1          8.0                0                    0
+6            7      Rohan     Gupta        MBA   7.6          7.4                0                    0
+7            8       Neha     Desai         ME   8.0          7.8                0                    0
+8            9     Sanjay      Iyer         ME   7.2          7.0                1                    1
+9           10     Ananya      Nair         ME   8.3          8.2                0                    0
+10          11      Karan     Menon         CE   7.9          7.7                0                    0
+11          12      Sneha       Rao         CE   8.5          8.4                0                    0
+12          13       Amit      Bhat        BCA   7.6          7.5                0                    0
+13          14      Pooja     Sinha        BCA   8.1          8.0                1                    1
+14          15     Suresh     Kumar        BCA   7.3          7.1                0                    0
+15          16     Deepti     Joshi        CSE   8.0          7.9                0                    0
+16          17      Varun   Nambiar        CSE   7.4          7.2                0                    0
+17          18     Sakshi     Bhatt        MBA   8.2          8.1                0                    0
+18          19     Nikhil    Chopra         ME   7.7          7.5                0                    0
+19          20     Ishita     Yadav        BCA   8.6          8.5                0                    0
+
+skills data:     student_id           technical_skills                                   soft_skills                                              project_titles
+0            1         Python, SQL, React           Communication, Teamwork, Leadership                E-commerce Platform, IoT Dashboard, REST API
+1            2   Python, Java, JavaScript  Communication, Problem Solving, Adaptability            ML Recommendation Engine, Web Portal, Mobile App
+2            3          C++, Java, Python      Teamwork, Time Management, Communication                   OS Scheduler, Game Engine, Data Analytics
+3            4    Python, JavaScript, SQL       Leadership, Communication, Adaptability     Real-time Chat App, Weather Dashboard, Inventory System
+4            5             Java, C++, SQL         Problem Solving, Teamwork, Leadership           Banking System, Queue Simulator, Report Generator
+5            6  Python, React, JavaScript                Communication, Problem Solving                    Web Scraper, Task Manager, Blog Platform
+6            7             Java, SQL, C++       Teamwork, Adaptability, Problem Solving         Android Banking App, Database Tool, File Compressor
+7            8  Python, JavaScript, React    Leadership, Time Management, Communication  Traffic Management System, Travel Planner, Expense Tracker
+8            9     JavaScript, SQL, React       Teamwork, Problem Solving, Adaptability         E-commerce Website, Social Network, Video Streaming
+9           10           Python, C++, DSA    Leadership, Communication, Problem Solving                              Chatbot, Maze Solver, Compiler
+10          11         Python, SQL, React                       Communication, Teamwork          Full-stack App, API Gateway, Authentication System
+11          12   Java, JavaScript, Python         Leadership, Problem Solving, Teamwork       Microservices Framework, Load Balancer, Cache Manager
+12          13           C++, Python, SQL       Communication, Adaptability, Leadership      Graph Visualization, Database Indexing, Memory Manager
+13          14  JavaScript, React, Python      Teamwork, Communication, Problem Solving          Progressive Web App, Cloud Dashboard, Email Client
+14          15          Python, SQL, Java       Problem Solving, Teamwork, Adaptability                Data Pipeline, ETL Tool, Analytics Dashboard
+15          16  Python, React, JavaScript                     Communication, Leadership         Frontend Framework, Design System, State Management
+16          17             Java, C++, SQL    Teamwork, Problem Solving, Time Management                 Backend API, Data Structures, System Design
+17          18  Python, JavaScript, React       Leadership, Communication, Adaptability                IoT Platform, Sensor Dashboard, Alert System
+18          19           C++, SQL, Python         Problem Solving, Teamwork, Leadership      Database Optimization, Parallel Processing, Networking
+19          20  JavaScript, Python, React  Communication, Adaptability, Problem Solving               Full-stack App, Payment Gateway, Admin Portal
+
+attendance data:     student_id  attendance_percentage
+0            1                     88
+1            2                     92
+2            3                     76
+3            4                     94
+4            5                     81
+5            6                     87
+6            7                     85
+7            8                     79
+8            9                     90
+9           10                     93
+10          11                     82
+11          12                     95
+12          13                     84
+13          14                     88
+14          15                     91
+15          16                     89
+16          17                     75
+17          18                     93
+18          19                     86
+19          20                     97
+
+company rules data:    company_name  minimum_cgpa allowed_departments  allows_backlog_history  max_active_backlogs required_technical_skills                          required_soft_skills
+0           TCS           7.0       CSE, MBA, BCA                       1                    2         Python, Java, SQL      Communication, Teamwork, Problem Solving
+1       Infosys           7.5            CSE, MBA                       1                    1         Java, Python, C++       Leadership, Communication, Adaptability
+2     Cognizant           7.2   CSE, MBA, ME, BCA                       1                    2   Python, JavaScript, SQL      Communication, Problem Solving, Teamwork
+3     Accenture           7.8            CSE, MBA                       0                    0         C++, Java, Python     Leadership, Adaptability, Problem Solving
+4     Capgemini           7.3       CSE, MBA, BCA                       1                    3   Python, SQL, JavaScript      Communication, Teamwork, Time Management
+5  TechMahindra           7.0        CSE, MBA, ME                       1                    2         Java, Python, C++         Teamwork, Problem Solving, Leadership
+6         Wipro           7.5            CSE, BCA                       0                    1        Python, SQL, React  Communication, Problem Solving, Adaptability
+7           HCL           7.2       CSE, MBA, BCA                       1                    3         Java, C++, Python           Leadership, Teamwork, Communication
+8        Amazon           8.0            CSE, MBA                       0                    0  Python, Java, JavaScript     Leadership, Problem Solving, Adaptability
+9        Google           8.2                 CSE                       0                    0   Python, C++, JavaScript    Leadership, Problem Solving, Communication
+

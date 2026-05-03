@@ -1,0 +1,103 @@
+Project Overview:
+
+What is the main problem this project solves?
+It solves the problem of master data management, taking messy data from different sources and creating a single, reliable "Golden Record" for a student 
+
+The Problem (The "Messy" Data)
+​Imagine the Placement Cell receives three different files from three different departments. Notice how inconsistent they are:
+​Source A (Exam Cell - CSV): Uses roll_no, cgpa, and backlogs.
+​Source B (CS Department - JSON): Uses id, name, and lists completed_courses.
+​Source C (Student Self-Portal - API/JSON): Uses student_email, and a list of skills.
+​None of these systems share the exact same keys, and the data types might be different (e.g., a CGPA might be a string in one and a float in another)
+
+The Solution: ​Your pipeline's job is to read these three sources, clean them, and merge them into a single schema.
+
+
+What are the objectives/goals?
+- to provide a single clean schema from which the school can know which students are eligible for which placement (company) and to what degree, what skills do they possess and what skills they lack, 
+- to reduce the time in grading students and assigning them to the placements that they are eligible for
+- for companies to easily get a list of all the student that are eligible along with their skills and cgpa
+
+Who are the end users? (e.g., placement office, students, companies)
+- placement office can see the data
+- students can see the skills they lack and howfar they are from being eligible for a placement
+- companies see which students are eligible for which roles
+
+
+Your Details (I have a separate Cover Page):
+Your Name: Justin W Chada
+Your Roll Number/Registration: 250311
+Your College/University Name: Quest Group of Institutions
+Project Duration (when did you start/finish?): March 2026 to April 2026
+Semester/Year: 3rd Year, 6th Semester
+Any Guide/Mentor Name (if applicable): Ms Rashmi
+
+
+Technical Details:
+What machine learning models are you using for predictions:
+-- i am not using any learning models in this case because even if i predict i do not have a way to actually verify the accuracy of the model. [But to think of it i think we should include the predictions model in the dashboard]
+What are the input features and output predictions:
+-- input features are the source file columns in config.py and the output features are stated in the OUTPUT_SCHEMA in config.py
+What is the database schema (number of tables, key relationships)
+-- company_shortlists_table schema in p_5_storage.py
+-- predictions_table schema also in p_5._storage.py
+-- registry schema in config.py
+-- student_company_match_table schema also in p_5._storage.py
+-- student_recommendations_table schema also in p_5._storage.py
+-- students_table schema also in p_5._storage.py
+
+
+Project Scope:
+What specific metrics does the dashboard display:
+-- In Overview Tab
+	-- Prediction Distribution (low, medium, high) (pichart)
+	-- Eligibility vs Prediction (high, low, medium bins & eligible (0,1))
+	-- top 10 companies with which student with high readiness_Score fall
+	-- readiness score distribution with readiness_score(x axis) and count (y axis)
+-- In Student Analysis Tab
+	-- students count by number of high predictions (bar chart)
+	-- average readiness score by prediction (bins)
+	-- Top 15 Students by Average Readiness Score (tabular)
+-- In Company Analysis Tab 
+	-- Top 15 Companies by Student Interest (horizontal bar charts)
+	-- Top 15 Companies by Avg Student Readiness (horizontal bar charts)
+	-- Company Shortlist Summary (cols = [company_name, total_candidates, avg_readiness, eligible_count]) (tabular)
+	
+-- In Recommendations Tab
+	-- Student Company Recommendations. For each Student, Top 5 Company Recommendations for Student each row with cols (Company, Readiness Score, Eligible, Category [high/low/medium]) AND also Top Students Comparison
+
+-- In Search Details Tab
+	-- Search & Filter Data. Search by [Student ID/Name, Company Name, Prediction Level]. Search -> Enter Student ID or Name. Export Data
+
+
+How many students/data records does it handle?
+-- it is scalable for as little to as many as there can be in a school
+
+What features does the recommendation system have?
+--  For each Student, Top 5 Company Recommendations for Student each row with cols (Company, Readiness Score, Eligible, Category [high/low/medium]) AND also Top Students Comparison
+
+
+Methodology:
+What data preprocessing techniques do you use?
+-- data cleaning which is done after ingestion where each source is cleaned separately but the modules used are reusable for different file sources so no need to write redundant modules for each source file only specific cleaning files. Removing punctuations, lower casing all data, normalize_text_columns, convert_[numeric,boolean]_columns, drop_duplicate_rows, handle_missing_values by filling not dropping rows, validate_column_values if they are valid
+-- data transformation: converting strings to lists on skills etc, new columns such as full_name from first name and last name, pd_to_numeric to ensure integers are really integers, using same department name i.e CSE, CS, Btech cse --> CSE
+-- integration: creating a unified schema view of the data by merging all the df of the different sources on student_id except the company_rules_df
+
+How do you handle missing values and outliers?
+-- outliers we clip them, i.e cgp is 0 to 10, anything below or above is clipped to 0 or 10 respectivels, attendance, readiness score is clipped between 0 and 100, current_semester is clipped if above 8
+
+Any specific validation/testing approaches?
+-- testing approaches i used are bottom up, unit, integration/system testing, white box testing
+
+Key Achievements/Highlights:
+Accuracy metrics or success rates:
+ ~> 75%
+Performance improvements:
+-- yes: no machine learning right now, can use more efficient methods to clean and process data, pipeline is still manual not automatic so it needs someone to rerun/refresh dashboard it to see changes, it is limited to csv files only for now
+
+Any unique features:
+-- readiness score for each student
+-- predicts which student are eligible for which companies and to what degree  (high, low, medium)
+-- compares between different students
+-- shows how far short studnts is and suggests improvements
+-- Total Student-Company Pairs, Eligible Pairs, High Placement Likelihood, Avg Readiness Score

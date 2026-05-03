@@ -1,0 +1,38 @@
+The type of data processing that a data pipeline requires is usually determined through a mix of exploratory data analysis and defined business requirements
+Well-organized data pipelines provide the foundation for a range of data projects; this can include exploratory data analyses, data visualizations, and machine learning tasks.
+
+What makes a good pipeline is structure, reproducibility, tracebaility and the ability to rerun safely without corrupting data or results
+
+Ingestion process starts with "find file", "record what happened", "check whether file has changed", "read data", "handle bad cases", "save results"
+
+Ingestion stage should answer:
+- which file did i read?
+- when did i read it?
+- was it already processed before?
+- did reading succeed?
+- if it failed, why, what happened?
+- what schema did i receive?
+
+"Name: Placement Readiness Data Pipeline"
+
+If you ever want to understand CSV parsing at a lower level, Python’s built-in csv.DictReader maps rows to dictionaries using the file headers, but for this project pandas is the better primary tool because you are building a tabular ETL pipeline, not a row-by-row script.
+
+Read on: sep, header, usecols, and na_values, --- read
+
+We use chunks and 4096 for memory efficiency not to read all the file at once
+
+When loading csv files:
+- sep specifies the characters used to separate data fields
+- header specifies which row to use as column names ie.0 by default else pandas use its default interger columns
+- usecols allows loading a set of columns only 
+- na_values defines additional strings to be recognized as missing data
+
+Read on: Python’s csv.DictReader only as a conceptual contrast, since it shows how CSV headers map to keys but is less convenient than pandas for your ETL pipeline
+
+
+-----------------------------------------------------------
+ASSUMPTIONS:
+For this school project, assuming filename uniqueness is acceptable if you control the raw folder and the naming convention, so searching by filename is fine within your scope. In a production pipeline I would still prefer using full file paths or a path-plus-hash combination, but for your current project your assumption is reasonable as long as you document it clearly in your report or comments
+
+ADDITIONS:
+Once you later collect actual outcomes, you can upgrade this same stage to logistic regression or XGBoost without changing the pipeline structure much

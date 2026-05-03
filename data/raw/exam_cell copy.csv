@@ -1,0 +1,11 @@
+student_id,first_name,last_name,department,batch,semester,cgpa,sgpa,backlogs,history_of_backlogs
+1,Ashish,Sharma,CSE,2019,3,7.5,7.0,0,0
+2,Akash,Kumar,ECE,2020,2,8.0,7.5,0,0
+3,Sneha,Gupta,CE,2018,4,6.5,6.0,1,0
+4,Rahul,Jain,ME,2017,3,7.0,6.5,0,0
+5,Mohit,Sharma,BCA,2019,2,8.5,7.0,0,0
+6,Neha,Jha,ME,2018,4,7.5,7.0,0,0
+7,Pranav,Gupta,CSE,2020,3,8.0,7.5,0,0
+8,Sarthak,Singh,CE,2017,2,7.0,6.5,1,0
+9,Ankit,Kumar,BCA,2019,4,7.0,6.0,0,0
+10,Ashish,Tiwari,ME,2018,3,6.5,6.0,0,0
