@@ -126,29 +126,29 @@ def load_dataframe_cache(filename):
     return None
 
 # def get_all_files():
-#     raw_files = [path for path in RAW_DIR.glob('**/*') if path.is_file()]
-    
-#     if not raw_files:
-#         LOGGER_FUNCTION('warning', f"No files found in the raw directory: {RAW_DIR}. Please check the directory and try again.")
-#         return
-    
-#     for path in raw_files:
-#         filename = path.name
-#         file_path = str(path.resolve())
+    #     raw_files = [path for path in RAW_DIR.glob('**/*') if path.is_file()]
         
-#         LOGGER_FUNCTION('info', f"\n--------------------------------------------------------------------------")
-#         LOGGER_FUNCTION('info', f"Discovered file: {filename}")
-
-#         #res = HASHING_FUNCTION(path)
-    
-#         # if res is None:
-#         #     LOGGER_FUNCTION('warning', f"Skipping file {filename} because hashing failed.")
-#         #     continue
+    #     if not raw_files:
+    #         LOGGER_FUNCTION('warning', f"No files found in the raw directory: {RAW_DIR}. Please check the directory and try again.")
+    #         return
         
-#         # filename, file_path, digest = res
+    #     for path in raw_files:
+    #         filename = path.name
+    #         file_path = str(path.resolve())
+            
+    #         LOGGER_FUNCTION('info', f"\n--------------------------------------------------------------------------")
+    #         LOGGER_FUNCTION('info', f"Discovered file: {filename}")
 
-#         # check_registry_status(filename, file_path, digest)
-#         # load_source_file(file_path, "none", "none")
+    #         #res = HASHING_FUNCTION(path)
+        
+    #         # if res is None:
+    #         #     LOGGER_FUNCTION('warning', f"Skipping file {filename} because hashing failed.")
+    #         #     continue
+            
+    #         # filename, file_path, digest = res
+
+    #         # check_registry_status(filename, file_path, digest)
+    #         # load_source_file(file_path, "none", "none")
 
 def read_csv_file(file_path: Path) -> pd.DataFrame:
     try:

@@ -680,12 +680,17 @@ with tab5:
     if search_mode == "Student ID/Name":
         student_id = st.text_input("Enter Student ID or Name:")
         if student_id:
-            student_matches = students_merged_predictions[(students_merged_predictions["student_id"] == int(student_id) if student_id.isdigit() else False) | (students_merged_predictions["full_name"].str.contains(student_id, case=False, na=False))]
-
+            # Use predictions_df which has readiness_score column
+            if student_id.isdigit():
+                student_matches = predictions_df[predictions_df["student_id"] == int(student_id)]
+            else:
+                # Search by name in students_merged_predictions, then filter predictions_df
+                matching_students = students_merged_predictions[
+                    students_merged_predictions["full_name"].str.contains(student_id, case=False, na=False)
+                ]["student_id"].unique()
+                student_matches = predictions_df[predictions_df["student_id"].isin(matching_students)]
             
             if len(student_matches) > 0:
-                if student_id.isdigit():
-                    student_id = student_matches["full_name"].iloc[0]
                 st.write(f"Found {len(student_matches)} records for Student {student_id}")
                 st.dataframe(student_matches.sort_values("readiness_score", ascending=False), use_container_width=True)
             else:

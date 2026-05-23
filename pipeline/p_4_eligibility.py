@@ -75,7 +75,7 @@ def compute_skills_eligibility(df, company_df):
     """
     df = df.copy()
     
-    LOGGER_FUNCTION('info', f"\nComputing skills eligibility for each company...")
+    LOGGER_FUNCTION('info', f"Computing skills eligibility for each company...")
     # Iterate through each company in company_df
     for idx, company_row in company_df.iterrows():
         company_name = company_row['company_name']
@@ -118,7 +118,7 @@ def compute_placement_readiness_score(df, company_df):
     """
     df = df.copy()
 
-    LOGGER_FUNCTION('info', f"\nComputing placement readiness score for each company...")
+    LOGGER_FUNCTION('info', f"Computing placement readiness score for each company...")
     
     # Normalize academic score
     academic = df["cgpa"].clip(0, 10) / 10
@@ -169,7 +169,7 @@ def build_eligibility_view(ingested_data):
     Now handles mixed empty/non-empty dataframes gracefully.
     """
 
-    LOGGER_FUNCTION('info', f"\n------------------------------------ ELIGIBILITY VIEW --------------------------------------")
+    LOGGER_FUNCTION('info', f"------------------------------------ ELIGIBILITY VIEW --------------------------------------")
     student_details_df = ingested_data["student_details_data"]
     exams_df = ingested_data["exam_data"]
     attendance_df = ingested_data["attendance_data"]
@@ -213,7 +213,7 @@ def build_eligibility_view(ingested_data):
     if not company_rules_df.empty:
         company_rules_df = convert_numeric_columns(company_rules_df, ["student_id"])
 
-    LOGGER_FUNCTION('info', f"\nMerging the datasets based on the student_id (skipping empty dataframes)...")
+    LOGGER_FUNCTION('info', f"Merging the datasets based on the student_id (skipping empty dataframes)...")
     
     # Start with student details as the base (required)
     df = student_details_df.copy()
@@ -259,7 +259,7 @@ def build_eligibility_view(ingested_data):
     # ---- Create normalized dataframes ----
     
     # 1. STUDENTS TABLE: Core student info - only include columns that exist in the merged dataframe
-    LOGGER_FUNCTION('info', f"\nCreating students table view...")
+    LOGGER_FUNCTION('info', f"Creating students table view...")
     
     # Define all potential student columns, but only include those that exist
     potential_student_cols = [
@@ -279,7 +279,7 @@ def build_eligibility_view(ingested_data):
         LOGGER_FUNCTION('info', f"Note: Following columns not available in merged data (source dataframes were empty): {missing_cols}")
     
     # 2. STUDENT_COMPANY_MATCH TABLE: Company matching details
-    LOGGER_FUNCTION('info', f"\nCreating student-company match table view...")
+    LOGGER_FUNCTION('info', f"Creating student-company match table view...")
     
     if not company_rules_df.empty:
         company_match_records = []
@@ -312,9 +312,9 @@ def build_eligibility_view(ingested_data):
             'soft_skills_count', 'soft_skills_percentage', 'eligible', 'readiness_score'
         ])
     
-    LOGGER_FUNCTION('info', f"\nFinal students table shape: {students_df.shape}")
-    LOGGER_FUNCTION('info', f"\nFinal student-company match table shape: {student_company_match_df.shape}")
-    LOGGER_FUNCTION('info', f"\n------------------------------------ ELIGIBILITY VIEW BUILT --------------------------------------")
+    LOGGER_FUNCTION('info', f"Final students table shape: {students_df.shape}")
+    LOGGER_FUNCTION('info', f"Final student-company match table shape: {student_company_match_df.shape}")
+    LOGGER_FUNCTION('info', f"------------------------------------ ELIGIBILITY VIEW BUILT --------------------------------------")
     
     return {
         'students': students_df,

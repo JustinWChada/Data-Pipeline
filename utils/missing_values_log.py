@@ -15,4 +15,4 @@ FILE_HANDLER.setFormatter(formatter)
 
 MISSING_VALUES_LOGGER.addHandler(FILE_HANDLER)
 
-MISSING_VALUES_LOGGER.info(f"File has missing values on columns")
+# MISSING_VALUES_LOGGER.info(f"File has missing values on columns")

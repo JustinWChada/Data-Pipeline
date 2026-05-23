@@ -92,8 +92,8 @@ def load_to_postgresql(students_df, student_company_match_df):
     session.close()
 
 def run_storage_stage(student_df, student_company_match_df):
-    LOGGER_FUNCTION("info","\n------------------------------------ STARTING STORAGE STAGE --------------------------------------")
+    LOGGER_FUNCTION("info","------------------------------------ STARTING STORAGE STAGE --------------------------------------")
 
     save_to_csv(student_df, student_company_match_df)
     load_to_postgresql(student_df, student_company_match_df)
-    LOGGER_FUNCTION("info","Storage stage completed successfully.\n------------------------------------ END OF STORAGE STAGE --------------------------------------\n")
+    LOGGER_FUNCTION("info","Storage stage completed successfully.\n------------------------------------ END OF STORAGE STAGE --------------------------------------")

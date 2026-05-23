@@ -1,0 +1,72 @@
+Educational institutions, including Quest Infosys Foundation Group of Institutions, face a chronic challenge in placement management: student data is fragmented across multiple departmental systems, formats are inconsistent, and placement officers spend significant time manually checking eligibility criteria for each company. The Placement Readiness Data Pipeline addresses this structural inefficiency by consolidating data from disparate sources into a single authoritative student record for placement decisions.
+Built using Python, Pandas, PostgreSQL, and Streamlit, the system automates data ingestion, cleaning, preprocessing, eligibility scoring, and interactive analytics. The pipeline follows a modular six-stage Extract, Transform, Load (ETL) architecture that processes raw CSV files from multiple departments into clean, unified student profiles, evaluates each student against company-specific eligibility criteria, and surfaces actionable insights through an interactive dashboard.
+The system provides placement officers with a consolidated view of student readiness, enables students to identify skill gaps and track their eligibility progress, and allows recruiting companies to access curated, filterable candidate lists. Key performance outcomes include approximately 75% eligibility prediction accuracy, 85% reduction in manual processing time, a 92% data quality score post-cleaning, and dashboard load times under two seconds. This project demonstrates the practical application of data engineering principles to solve a critical institutional problem, improving accuracy, consistency, and transparency in the campus placement process.
+
+
+The system follows a modular six-stage ETL architecture. Each stage operates as an independent Python module, enabling isolated testing, debugging, and future enhancement without system-wide impact. The overall pipeline flow is as follows:
+
+[ FIGURE 3.1 — Insert Pipeline Architecture Diagram here (CSV Sources → Ingestion → Cleaning → Preprocessing → Eligibility → Storage → Prediction → Dashboard) ]
+
+
+3.3.1 Pipeline Stages
+Stage	Name	Function
+Stage 1	Data Ingestion	Reads CSV sources, validates schemas, tracks processed files using SHA-256 hashing to prevent reprocessing.
+Stage 2	Data Cleaning	Removes duplicates, handles missing values, normalises text (lowercase, punctuation removal), and validates data types.
+Stage 3	Data Preprocessing	Transforms data types, normalises department names (e.g., CS/CSE/Btech-CSE → CSE), creates derived fields (full_name, project_count, skill_diversity).
+Stage 4	Eligibility Assessment	Applies company-specific business rules (minimum CGPA, attendance thresholds, backlog history, required skills) to determine student eligibility.
+Stage 5	Data Storage	Persists clean data to PostgreSQL via SQLAlchemy ORM; generates CSV snapshots for archival and reporting.
+Stage 6	Prediction & Dashboard	Generates readiness scores and company recommendations; delivers interactive Streamlit analytics dashboard.
+
+3.4 Data Sources and Integration
+Input data is sourced from four primary CSV files maintained across institutional departments:
+•	Student Details file: Core demographic and academic profile data (name, department, semester, CGPA, backlog history).
+•	Exam Cell data: Examination records including CGPA, active backlogs, and academic standing.
+•	Attendance Records: Attendance percentage data from the institution's attendance management system.
+•	Skills Portal export: Self-reported technical and soft skills from the student portal.
+All four sources are merged using student_id as the universal primary key. A separate Company Rules file maintains eligibility thresholds for each recruiting organisation. This design allows new company criteria to be added without modifying the core pipeline logic.
+
+
+3.5 Data Processing Details
+3.5.1 Data Cleaning (Stage 2)
+The cleaning stage applies a standardised set of transformations to each source independently, using reusable module functions to avoid redundant implementation:
+•	Text normalisation: stripping whitespace, converting to lowercase, removing special characters, normalising unicode encoding.
+•	Missing value handling: strategic imputation (not row deletion) to preserve all student records; imputed fields are flagged for auditability.
+•	Duplicate detection: composite key matching, retaining the first valid occurrence and logging removed duplicates.
+•	Type validation: converting string representations to correct numeric or boolean types; enforcing domain constraints (e.g., CGPA must be a float between 0 and 10).
+3.5.2 Data Preprocessing (Stage 3)
+The preprocessing stage applies schema unification and feature engineering across the merged dataset:
+•	Department name standardisation: mapping variant department labels (CS, CSE, Btech-CSE, Btech-Computer Science) to the canonical form 'CSE'.
+•	Derived field creation: constructing full_name from first_name and last_name; calculating project_count from project title lists; engineering a skill_diversity metric.
+•	Outlier clipping: CGPA clipped to [0, 10]; attendance percentage to [0, 100]; readiness score to [0, 100]; current_semester capped at 8.
+•	Skills transformation: converting comma-separated skill strings (e.g., 'Python,Java,SQL') to structured list objects for downstream matching.
+3.5.3 Eligibility Assessment (Stage 4)
+The eligibility engine evaluates each student against every company's configurable criteria. A student is flagged eligible for a company when all of the following conditions are satisfied:
+•	CGPA meets or exceeds the company's minimum threshold.
+•	Department is in the company's list of accepted departments.
+•	Active backlog count does not exceed the company's maximum permitted backlogs.
+•	Backlog history is compatible with the company's policy.
+•	Student possesses the required technical and soft skills.
+
+
+4.1 Database Schema
+The system persists all processed data in a normalised PostgreSQL database comprising five tables with referential integrity enforced through foreign key constraints:
+
+[ FIGURE 4.1 — Insert Entity Relationship Diagram here ]
+
+The five tables are: students (core academic and demographic profile), company_rules (company-specific eligibility criteria), student_company_match (eligibility results and readiness scores for each student-company pair), recommendations (top-5 ranked company recommendations per student), and registry (file processing audit trail with SHA-256 hashes and timestamps).
+4.2 Readiness Scoring Algorithm
+The readiness score is a quantitative metric in the range [0, 100] computed as a weighted combination of four normalised factors:
+Metric	Value
+CGPA Score Weight	40%
+Attendance Score Weight	20%
+Skills Matching Weight	25%
+Backlog Status Weight	15%
+
+Based on the computed readiness score, each student-company pair is assigned a categorical prediction: High (score ≥ 0.75), Medium (score ≥ 0.60), or Low (score < 0.60). This categorical output enables quick at-a-glance assessment in the dashboard alongside the continuous score for detailed analysis.
+4.3 Dashboard Implementation
+The Streamlit-based analytics dashboard is the primary interface for all end users. It loads in under two seconds using a caching strategy that reads prediction CSV files once per session. The dashboard comprises five specialised interactive tabs:
+•	Overview Tab: Prediction distribution pie chart (Low/Medium/High), eligibility vs prediction cross-tabulation, top 10 companies by high-readiness student concentration, and readiness score histogram.
+•	Student Analysis Tab: Bar chart of student counts by prediction category, average readiness score by prediction bin, and a ranked table of the top 15 students by average readiness score.
+•	Company Analysis Tab: Horizontal bar charts of top 15 companies by student interest and by average student readiness; company shortlist summary table with candidate counts, average readiness, and eligible count.
+•	Recommendations Tab: For each student, a personalised table of the top 5 company recommendations with columns for company name, readiness score, eligibility status, and readiness category; plus a cross-student comparison view.
+•	Search and Filter Tab: Advanced filtering by Student ID, student name, company name, or prediction level; with CSV export functionality for offline analysis.

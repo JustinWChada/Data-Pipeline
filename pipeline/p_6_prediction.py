@@ -68,7 +68,6 @@ def bucket_readiness_score(score):
         return "Medium"
 
     return "Low"
-    pass
 
 def filter_eligible_matches(predictions_df): 
     #Keep only rows where the student is worth considering for 
@@ -88,9 +87,10 @@ def rank_company_matches(predictions_df):
 def log_prediction_summary(predictions_df): 
     #Log counts like total High, Medium, and Low predictions for 
     # debugging and review.
+    
     summary = predictions_df["prediction"].value_counts()
 
-    LOGGER_FUNCTION("info",f"Prediction Summary:\n{summary}")
+    LOGGER_FUNCTION("info",f"Prediction Summary:{summary}")
 
 #-------MAIN FUNCTIONS---------
 
@@ -144,7 +144,7 @@ def load_predictions_to_postgresql(predictions_df, student_recommendations_df, c
 def run_predictions_stage(predictions_df, students_df): 
     #Main orchestration function that calls load, validate, prepare, predict, rank, save, 
     # and store in sequence.
-    LOGGER_FUNCTION("info","\n------------------------------------ STARTING PREDICTION STAGE --------------------------------------")
+    LOGGER_FUNCTION("info","------------------------------------ STARTING PREDICTION STAGE --------------------------------------")
     predictions_df = generate_prediction_scores(predictions_df)
     student_recommendations_df = get_top_company_recommendations(predictions_df)
     company_shortlists_df = get_top_student_shortlists(predictions_df)
@@ -155,6 +155,6 @@ def run_predictions_stage(predictions_df, students_df):
     students_merged_df.to_csv(SNAPSHOT_DIR / "students_merged_predictions.csv", index = False)
     log_prediction_summary(predictions_df)
 
-    LOGGER_FUNCTION("info","\n------------------------------------ ENDING PREDICTION STAGE --------------------------------------")
+    LOGGER_FUNCTION("info","------------------------------------ ENDING PREDICTION STAGE --------------------------------------")
     return predictions_df, student_recommendations_df, company_shortlists_df, students_merged_df
 

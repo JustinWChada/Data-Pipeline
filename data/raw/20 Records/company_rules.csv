@@ -1,0 +1,11 @@
+company_name,minimum_cgpa,allowed_departments,allows_backlog_history,max_active_backlogs,required_technical_skills,required_soft_skills
+TCS,7.0,"CSE, MBA, BCA",1,2,"Python, Java, SQL","Communication, Teamwork, Problem Solving"
+Infosys,7.5,"CSE, MBA",1,1,"Java, Python, C++","Leadership, Communication, Adaptability"
+Cognizant,7.2,"CSE, MBA, ME, BCA",1,2,"Python, JavaScript, SQL","Communication, Problem Solving, Teamwork"
+Accenture,7.8,"CSE, MBA",0,0,"C++, Java, Python","Leadership, Adaptability, Problem Solving"
+Capgemini,7.3,"CSE, MBA, BCA",1,3,"Python, SQL, JavaScript","Communication, Teamwork, Time Management"
+TechMahindra,7.0,"CSE, MBA, ME",1,2,"Java, Python, C++","Teamwork, Problem Solving, Leadership"
+Wipro,7.5,"CSE, BCA",0,1,"Python, SQL, React","Communication, Problem Solving, Adaptability"
+HCL,7.2,"CSE, MBA, BCA",1,3,"Java, C++, Python","Leadership, Teamwork, Communication"
+Amazon,8.0,"CSE, MBA",0,0,"Python, Java, JavaScript","Leadership, Problem Solving, Adaptability"
+Google,8.2,"CSE",0,0,"Python, C++, JavaScript","Leadership, Problem Solving, Communication"
